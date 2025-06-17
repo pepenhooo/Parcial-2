@@ -7,7 +7,7 @@ Este proyecto demuestra la implementación de la interfaz `Serializable` en Java
 El proyecto consta de dos archivos principales:
 
 - `Person.java`: Clase que implementa la interfaz Serializable
-- `Main.java`: Clase principal que demuestra las operaciones de serialización y manejo de archivos
+- `SerializationAndFileHandler.java`: Clase principal que demuestra las operaciones de serialización y manejo de archivos
 
 ## Componentes Principales
 
@@ -18,7 +18,7 @@ El proyecto consta de dos archivos principales:
 - Proporciona getters y setters para todos los atributos
 - Implementa el método `toString()` para mostrar la información del objeto
 
-### 2. Clase Main
+### 2. Clase SerializationAndFileHandler
 Implementa cuatro operaciones principales:
 
 #### a) Serialización de Objetos
@@ -52,12 +52,12 @@ El programa genera dos archivos durante su ejecución:
 
 Para compilar el proyecto:
 ```bash
-javac Person.java Main.java
+javac Person.java SerializationAndFileHandler.java
 ```
 
 Para ejecutar el programa:
 ```bash
-java Main
+java SerializationAndFileHandler
 ```
 
 ## Manejo de Errores

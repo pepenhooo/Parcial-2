@@ -5,44 +5,80 @@ import java.util.List;
 /**
  * Clase principal que demuestra el uso de Serializable y operaciones con archivos
  */
-public class Main {
+public class SerializationAndFileHandler {
+    // Constantes para los nombres de archivos
+    private static final String SERIALIZED_FILE = "personas.ser";
+    private static final String TEXT_FILE = "personas.txt";
+
     public static void main(String[] args) {
-        // Crear una lista de personas
-        List<Person> people = new ArrayList<>();
-        people.add(new Person("Juan Pérez", 25, "Calle 123"));
-        people.add(new Person("María García", 30, "Avenida 456"));
-        
-        // Nombre del archivo para serialización
-        String serializedFile = "personas.ser";
-        // Nombre del archivo para operaciones con BufferedReader
-        String textFile = "personas.txt";
-        
         try {
-            // 1. Demostración de serialización
-            System.out.println("Serializando objetos...");
-            serializeObjects(people, serializedFile);
-            
-            // 2. Demostración de deserialización
-            System.out.println("\nDeserializando objetos...");
-            List<Person> deserializedPeople = deserializeObjects(serializedFile);
-            System.out.println("Objetos deserializados:");
-            for (Person person : deserializedPeople) {
-                System.out.println(person);
-            }
-            
-            // 3. Demostración de operaciones con BufferedReader
-            System.out.println("\nEscribiendo en archivo de texto...");
-            writeToFile(people, textFile);
-            
-            System.out.println("\nLeyendo archivo de texto con BufferedReader...");
-            readFromFile(textFile);
+            // Crear y procesar la lista de personas
+            List<Person> people = createSamplePeople();
+            processPeople(people);
             
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Crea una lista de ejemplo de personas
+     * @return Lista de personas de ejemplo
+     */
+    private static List<Person> createSamplePeople() {
+        List<Person> people = new ArrayList<>();
+        people.add(new Person("Juan Pérez", 25, "Calle 123"));
+        people.add(new Person("María García", 30, "Avenida 456"));
+        return people;
+    }
+
+    /**
+     * Procesa la lista de personas realizando todas las operaciones necesarias
+     * @param people Lista de personas a procesar
+     */
+    private static void processPeople(List<Person> people) throws IOException, ClassNotFoundException {
+        // 1. Serialización y deserialización
+        System.out.println("=== Proceso de Serialización ===");
+        serializeAndDeserialize(people);
+
+        // 2. Operaciones con archivos de texto
+        System.out.println("\n=== Operaciones con Archivos de Texto ===");
+        handleTextFileOperations(people);
+    }
+
+    /**
+     * Realiza el proceso de serialización y deserialización
+     * @param people Lista de personas a procesar
+     */
+    private static void serializeAndDeserialize(List<Person> people) throws IOException, ClassNotFoundException {
+        // Serializar
+        System.out.println("Serializando objetos...");
+        serializeObjects(people, SERIALIZED_FILE);
+        
+        // Deserializar
+        System.out.println("\nDeserializando objetos...");
+        List<Person> deserializedPeople = deserializeObjects(SERIALIZED_FILE);
+        System.out.println("Objetos deserializados:");
+        for (Person person : deserializedPeople) {
+            System.out.println(person);
+        }
+    }
+
+    /**
+     * Maneja las operaciones con archivos de texto
+     * @param people Lista de personas a procesar
+     */
+    private static void handleTextFileOperations(List<Person> people) throws IOException {
+        // Escribir en archivo
+        System.out.println("Escribiendo en archivo de texto...");
+        writeToFile(people, TEXT_FILE);
+        
+        // Leer archivo
+        System.out.println("\nLeyendo archivo de texto con BufferedReader...");
+        readFromFile(TEXT_FILE);
+    }
+
     /**
      * Serializa una lista de objetos Person a un archivo
      * @param people Lista de personas a serializar
@@ -54,7 +90,7 @@ public class Main {
             System.out.println("Objetos serializados exitosamente en " + filename);
         }
     }
-    
+
     /**
      * Deserializa una lista de objetos Person desde un archivo
      * @param filename Nombre del archivo a leer
@@ -66,7 +102,7 @@ public class Main {
             return (List<Person>) ois.readObject();
         }
     }
-    
+
     /**
      * Escribe la información de las personas en un archivo de texto
      * @param people Lista de personas a escribir
@@ -81,7 +117,7 @@ public class Main {
             System.out.println("Archivo de texto creado exitosamente: " + filename);
         }
     }
-    
+
     /**
      * Lee el contenido de un archivo de texto usando BufferedReader
      * @param filename Nombre del archivo a leer
