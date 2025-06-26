@@ -1,2 +1,0 @@
-Person{name='Juan Pérez', age=25, address='Calle 123'}
-Person{name='María García', age=30, address='Avenida 456'}
